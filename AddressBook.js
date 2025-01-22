@@ -68,16 +68,20 @@ class AddressBook {
         this.arr = this.arr.filter(item => item.firstname !== name);
         console.log("Contact deleted successfully");
     }
+    print() {
+        console.log(this.arr);
+    }
 }
 function addressBook() {
     const address_book = new AddressBook();
     const intro = ` Welcome to the Address Book
     Enter the corresponding number to perform the operations:
-    0 -> Add Contacts
-    1 -> Edit Contact
-    2 -> Delete Contact
-    3 -> Get All Contacts
-    4 -> Exit `;
+    0 -> Add Contacts 
+    1 -> Edit Contact 
+    2 -> Delete Contact 
+    3 -> Add Multiple Contacts 
+    4 -> Get all Contacts 
+    5 -> Exit Menu `;
     while (true) {
         console.log(intro);
         const input = parseInt(readline_sync_1.default.question("Enter a number"));
@@ -99,6 +103,9 @@ function addressBook() {
                     address_book.add();
                     noOfContacts--;
                 }
+                break;
+            case 4:
+                address_book.print();
                 break;
             default:
                 break;
