@@ -67,6 +67,13 @@ class AddressBook {
         }
     }
 
+    delete(name : string){
+        this.arr = this.arr.filter(item => item.firstname !== name);
+        console.log("Contact deleted successfully");
+    }
+
+
+
 
 }
 
@@ -97,6 +104,9 @@ function addressBook() {
                 break;
 
             case 2:
+                const deletename : string = readLineSync.question("Delete the contact by entering name");
+                address_book.delete(deletename);
+                break;
 
             default:
                 break;
