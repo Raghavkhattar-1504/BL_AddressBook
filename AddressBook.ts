@@ -14,7 +14,29 @@ interface Contact {
 class AddressBook {
     arr : Contact[] = [];
 
-    
+    add(){
+        const firstname = readLineSync.question("Enter First Name");
+        const lastname = readLineSync.question("Enter Last Name");
+        const address = readLineSync.question("Enter Address");
+        const city = readLineSync.question("Enter City");
+        const state = readLineSync.question("Enter State");
+        const zip = parseInt(readLineSync.question("Enter Zip Code"));
+        const phonenumber = parseInt(readLineSync.question("Enter Phone Number"));
+        const email = readLineSync.question("Enter Email Address");
+
+        const user : Contact = {
+            firstname : firstname,
+            lastname : lastname,
+            address : address,
+            city : city,
+            state : state,
+            zip : zip,
+            phonenumber : phonenumber,
+            email : email
+        } 
+        this.arr.push(user);
+        console.log(this.arr);
+    }
 }
 
 function addressBook() {
