@@ -86,7 +86,7 @@ function addressBook() {
     0 -> Add Contacts
     1 -> Edit Contact
     2 -> Delete Contact
-    3 -> Get All Contacts
+    3 -> Add Multiple Contacts
     4 -> Exit `
 
     while (true) {
@@ -106,6 +106,14 @@ function addressBook() {
             case 2:
                 const deletename : string = readLineSync.question("Delete the contact by entering name");
                 address_book.delete(deletename);
+                break;
+
+            case 3:
+                let noOfContacts: number = parseInt(readLineSync.question("Enter number of contacts you want to add: "))
+                while(noOfContacts){
+                    address_book.add();
+                    noOfContacts--;
+                }
                 break;
 
             default:

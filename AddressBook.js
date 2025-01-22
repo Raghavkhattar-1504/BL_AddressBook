@@ -64,6 +64,10 @@ class AddressBook {
             console.log("Contact not found!!");
         }
     }
+    delete(name) {
+        this.arr = this.arr.filter(item => item.firstname !== name);
+        console.log("Contact deleted successfully");
+    }
 }
 function addressBook() {
     const address_book = new AddressBook();
@@ -86,6 +90,16 @@ function addressBook() {
                 address_book.edit(editname);
                 break;
             case 2:
+                const deletename = readline_sync_1.default.question("Delete the contact by entering name");
+                address_book.delete(deletename);
+                break;
+            case 3:
+                let noOfContacts = parseInt(readline_sync_1.default.question("Enter number of contacts you want to add: "));
+                while (noOfContacts) {
+                    address_book.add();
+                    noOfContacts--;
+                }
+                break;
             default:
                 break;
         }
