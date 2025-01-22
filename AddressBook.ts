@@ -72,9 +72,9 @@ class AddressBook {
         console.log("Contact deleted successfully");
     }
 
-
-
-
+    print(){
+        console.log(this.arr);
+    }
 }
 
 
@@ -83,11 +83,12 @@ function addressBook() {
 
     const intro: string = ` Welcome to the Address Book
     Enter the corresponding number to perform the operations:
-    0 -> Add Contacts
-    1 -> Edit Contact
-    2 -> Delete Contact
-    3 -> Add Multiple Contacts
-    4 -> Exit `
+    0 -> Add Contacts 
+    1 -> Edit Contact 
+    2 -> Delete Contact 
+    3 -> Add Multiple Contacts 
+    4 -> Get All Contacts 
+    5 -> Exit `
 
     while (true) {
         console.log(intro);
@@ -116,6 +117,13 @@ function addressBook() {
                 }
                 break;
 
+            case 4:
+                address_book.print();
+                break;
+            
+            case 5:
+                console.log("Exiting....");
+                return ;
             default:
                 break;
         }
