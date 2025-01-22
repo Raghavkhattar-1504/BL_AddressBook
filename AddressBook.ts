@@ -15,7 +15,6 @@ class AddressBook {
     arr : Contact[] = [];
 
     add(){
-
         const firstname = readLineSync.question("Enter First Name");
         const lastname = readLineSync.question("Enter Last Name");
         const address = readLineSync.question("Enter Address");
@@ -34,11 +33,9 @@ class AddressBook {
             zip : zip,
             phonenumber : phonenumber,
             email : email
-        }
-        
+        } 
         this.arr.push(user);
         console.log(this.arr);
-        
     }
 }
 
