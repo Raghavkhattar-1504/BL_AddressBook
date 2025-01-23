@@ -12,8 +12,8 @@ interface Contact {
 }
 
 interface newBook {
-    name : string,
-    data : AddressBook;
+    name: string,
+    data: AddressBook;
 }
 
 class AddressBook {
@@ -42,7 +42,7 @@ class AddressBook {
         }
 
         const userchk = this.arr.filter(item => item.firstname === user.firstname && item.lastname === user.lastname);
-        if(userchk[0]){
+        if (userchk[0]) {
             console.log("Conatct already exists with this name. ");
             return;
         }
@@ -79,51 +79,57 @@ class AddressBook {
         }
     }
 
-    delete(name : string){
+    delete(name: string) {
         this.arr = this.arr.filter(item => item.firstname !== name);
         console.log("Contact deleted successfully");
     }
 
-    print(){
-        console.log(this.arr);
+    getAllContacts() {
+        return this.arr;
     }
 }
 
 class Manager {
-    main : newBook[];
-    constructor(){
+    main: newBook[];
+    constructor() {
         this.main = [];
     }
 
 
-    add(name : string){
+    add(name: string) {
         const chk = this.main.filter(item => item.name === name);
-        if(!chk[0]){
-            this.main.push({name : name, data : new AddressBook()});
+        if (!chk[0]) {
+            this.main.push({ name: name, data: new AddressBook() });
             return;
         }
-        else{
+        else {
             console.log("This name already exists, try using unique name.");
         }
     }
 
-    getBook(name : string) : any {
-        const book : any = this.main.filter(item => item.name === name);
-        if(!book){
+    getBook(name: string): any {
+        const book: any = this.main.filter(item => item.name === name);
+        if (!book) {
             console.log("Address Book is not defined.");
         }
-        else{
+        else {
             return book[0];
         }
+    }
+
+    getPersonByCity(name: string, place: string) {
+        const data = this.main.flatMap(item => item.data.getAllContacts());
+        const filteredData = data.filter(item => item.firstname === name && (item.city === place || item.state === place));
+        return filteredData;
     }
 
 
 }
 
 
-function addressBook(address_book : AddressBook) {
-    const intro: string = 
-    `Enter the corresponding number to perform the operations:
+function addressBook(address_book: AddressBook) {
+    const intro: string =
+        `Enter the corresponding number to perform the operations:
     0 -> Add Contacts 
     1 -> Edit Contact 
     2 -> Delete Contact 
@@ -141,29 +147,29 @@ function addressBook(address_book : AddressBook) {
                 break;
 
             case 1:
-                const editname : string = readLineSync.question("Find contact by entering name");
+                const editname: string = readLineSync.question("Find contact by entering name");
                 address_book.edit(editname);
                 break;
 
             case 2:
-                const deletename : string = readLineSync.question("Delete the contact by entering name");
+                const deletename: string = readLineSync.question("Delete the contact by entering name");
                 address_book.delete(deletename);
                 break;
 
             case 3:
                 let noOfContacts: number = parseInt(readLineSync.question("Enter number of contacts you want to add: "))
-                while(noOfContacts){
+                while (noOfContacts) {
                     address_book.add();
                     noOfContacts--;
                 }
                 break;
             case 4:
-                address_book.print();
+                console.log(address_book.getAllContacts());
                 break;
             case 5:
                 console.log("Exiting...");
-                return ;
-                
+                return;
+
             default:
                 break;
         }
@@ -175,43 +181,45 @@ function addressBook(address_book : AddressBook) {
 
 function ManagerBook() {
     const managerBook = new Manager()
-    
 
-    
+
+
     while (true) {
-        const boilerplate : string = `----WELCOME TO THE ADDRESS BOOK MANAGER----
+        const boilerplate: string = `----WELCOME TO THE ADDRESS BOOK MANAGER----
         Choose the number:
         0 -> Exit 
         1 -> Add Address Book 
-        2 -> Select a book `
-        
+        2 -> Select a book 
+        3 -> Get Person by City 
+        `
+
         console.log(boilerplate);
-        const inp : number = parseInt(readLineSync.question("Enter the number: "));
+        const inp: number = parseInt(readLineSync.question("Enter the number: "));
         switch (inp) {
-            case 0: 
+            case 0:
                 console.log("Exiting...");
-                return ;
+                return;
             case 1:
-                const mainName : string = readLineSync.question("Enter the book name: ");
+                const mainName: string = readLineSync.question("Enter the book name: ");
                 managerBook.add(mainName);
                 break;
             case 2:
-                const bookname : string = readLineSync.question("Enter the book name: ");
-                const selectedBook : any = managerBook.getBook(bookname);
-                console.log(selectedBook);
+                const bookname: string = readLineSync.question("Enter the book name: ");
+                const selectedBook: any = managerBook.getBook(bookname);
                 addressBook(selectedBook.data);
+                break;
+            case 3:
+                const personName: string = readLineSync.question("Enter the person name: ");
+                const placeName: string = readLineSync.question("Enter the city or state: ");
+                console.log(managerBook.getPersonByCity(personName.toLowerCase(), placeName.toLowerCase()));
                 break;
 
             default:
                 break;
-                
+
 
         }
     }
-
-    
-
-    
 
 }
 

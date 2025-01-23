@@ -73,8 +73,8 @@ class AddressBook {
         this.arr = this.arr.filter(item => item.firstname !== name);
         console.log("Contact deleted successfully");
     }
-    print() {
-        console.log(this.arr);
+    getAllContacts() {
+        return this.arr;
     }
 }
 class Manager {
@@ -99,6 +99,11 @@ class Manager {
         else {
             return book[0];
         }
+    }
+    getPersonByCity(name, place) {
+        const data = this.main.flatMap(item => item.data.getAllContacts());
+        const filteredData = data.filter(item => item.firstname === name && (item.city === place || item.state === place));
+        return filteredData;
     }
 }
 function addressBook(address_book) {
@@ -132,7 +137,7 @@ function addressBook(address_book) {
                 }
                 break;
             case 4:
-                address_book.print();
+                console.log(address_book.getAllContacts());
                 break;
             case 5:
                 console.log("Exiting...");
@@ -149,7 +154,9 @@ function ManagerBook() {
         Choose the number:
         0 -> Exit 
         1 -> Add Address Book 
-        2 -> Select a book `;
+        2 -> Select a book 
+        3 -> Get Person by City 
+        `;
         console.log(boilerplate);
         const inp = parseInt(readline_sync_1.default.question("Enter the number: "));
         switch (inp) {
@@ -163,8 +170,12 @@ function ManagerBook() {
             case 2:
                 const bookname = readline_sync_1.default.question("Enter the book name: ");
                 const selectedBook = managerBook.getBook(bookname);
-                console.log(selectedBook);
                 addressBook(selectedBook.data);
+                break;
+            case 3:
+                const personName = readline_sync_1.default.question("Enter the person name: ");
+                const placeName = readline_sync_1.default.question("Enter the city or state: ");
+                console.log(managerBook.getPersonByCity(personName.toLowerCase(), placeName.toLowerCase()));
                 break;
             default:
                 break;
