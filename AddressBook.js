@@ -80,6 +80,26 @@ class AddressBook {
         this.arr.sort((a, b) => a.firstname.localeCompare(b.firstname));
         console.log(this.arr);
     }
+    sortContactsbyValue() {
+        const menu = `Enter the nmber on which basis you want to sort: 
+        1 -> Sort by city 
+        2 -> Sort by state
+        3 -> Sort by zip `;
+        console.log(menu);
+        const sortType = parseInt(readline_sync_1.default.question("Enter the number : "));
+        if (sortType === 1) {
+            this.arr.sort((a, b) => a.city.localeCompare(b.city));
+            return this.arr;
+        }
+        else if (sortType === 2) {
+            this.arr.sort((a, b) => a.state.localeCompare(b.state));
+            return this.arr;
+        }
+        else {
+            this.arr.sort((a, b) => a.zip - b.zip);
+            return this.arr;
+        }
+    }
 }
 class Manager {
     constructor() {
@@ -122,9 +142,9 @@ function addressBook(address_book) {
     2 -> Delete Contact 
     3 -> Add Multiple Contacts 
     4 -> Get all Contacts 
-    5 -> Exit Menu 
-    6 -> Sort Contacts by name 
-    `;
+    5 -> Sort contacts by name
+    6 -> Sort Contacts by Parameter
+    7 -> Exit  `;
     while (true) {
         console.log(intro);
         const input = parseInt(readline_sync_1.default.question("Enter a number"));
@@ -151,11 +171,15 @@ function addressBook(address_book) {
                 console.log(address_book.getAllContacts());
                 break;
             case 5:
-                console.log("Exiting...");
-                return;
-            case 6:
                 address_book.sortContacts();
                 break;
+            case 6:
+                console.log(address_book.sortContactsbyValue());
+                break;
+                break;
+            case 7:
+                console.log("Exiting...");
+                return;
             default:
                 break;
         }

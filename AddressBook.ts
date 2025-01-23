@@ -88,9 +88,31 @@ class AddressBook {
         return this.arr;
     }
 
-    sortContacts(){
-        this.arr.sort((a,b) => a.firstname.localeCompare(b.firstname));
+    sortContacts() {
+        this.arr.sort((a, b) => a.firstname.localeCompare(b.firstname));
         console.log(this.arr);
+    }
+
+    sortContactsbyValue() {
+        const menu: string = `Enter the nmber on which basis you want to sort: 
+        1 -> Sort by city 
+        2 -> Sort by state
+        3 -> Sort by zip `
+        console.log(menu);
+        
+        const sortType: number = parseInt(readLineSync.question("Enter the number : "));
+        if (sortType === 1) {
+            this.arr.sort((a, b) => a.city.localeCompare(b.city));
+            return this.arr;
+        }
+        else if (sortType === 2) {
+            this.arr.sort((a, b) => a.state.localeCompare(b.state));
+            return this.arr;
+        }
+        else {
+            this.arr.sort((a, b) => a.zip - b.zip);
+            return this.arr;
+        }
     }
 }
 
@@ -128,7 +150,7 @@ class Manager {
         return filteredData;
     }
 
-    PersonByCityCount(place : string){
+    PersonByCityCount(place: string) {
         const data = this.main.flatMap(item => item.data.getAllContacts());
         const filteredData = data.filter(item => item.city === place || item.state === place);
         return filteredData.length;
@@ -145,9 +167,9 @@ function addressBook(address_book: AddressBook) {
     2 -> Delete Contact 
     3 -> Add Multiple Contacts 
     4 -> Get all Contacts 
-    5 -> Exit Menu 
-    6 -> Sort Contacts by name 
-    `
+    5 -> Sort contacts by name
+    6 -> Sort Contacts by Parameter
+    7 -> Exit  `
 
     while (true) {
         console.log(intro);
@@ -179,11 +201,15 @@ function addressBook(address_book: AddressBook) {
                 console.log(address_book.getAllContacts());
                 break;
             case 5:
+                address_book.sortContacts();
+                break;
+            case 6:
+                console.log(address_book.sortContactsbyValue()); break;
+                break;
+            case 7:
                 console.log("Exiting...");
                 return;
-            case 6: 
-            address_book.sortContacts();
-            break
+
             default:
                 break;
         }
@@ -229,7 +255,7 @@ function ManagerBook() {
                 const place: string = readLineSync.question("Enter the city or state name: ");
                 console.log(managerBook.PersonByCityCount(place.toLowerCase()));
                 break;
-                
+
             default:
                 break;
 
