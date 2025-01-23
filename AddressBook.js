@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const readline_sync_1 = __importDefault(require("readline-sync"));
+const fs_1 = __importDefault(require("fs"));
 class AddressBook {
     constructor() {
         this.arr = [];
@@ -134,6 +135,10 @@ class Manager {
         const filteredData = data.filter(item => item.city === place || item.state === place);
         return filteredData.length;
     }
+    save() {
+        fs_1.default.writeFileSync('addressStore.json', JSON.stringify(this.main));
+        console.log("File Saved!");
+    }
 }
 function addressBook(address_book) {
     const intro = `Enter the corresponding number to perform the operations:
@@ -194,7 +199,8 @@ function ManagerBook() {
         1 -> Add Address Book 
         2 -> Select a book 
         3 -> Get Person by City 
-        4 -> Get count of Persons by city or state `;
+        4 -> Get count of Persons by city or state 
+        5 -> Save Data `;
         console.log(boilerplate);
         const inp = parseInt(readline_sync_1.default.question("Enter the number: "));
         switch (inp) {
@@ -218,6 +224,9 @@ function ManagerBook() {
             case 4:
                 const place = readline_sync_1.default.question("Enter the city or state name: ");
                 console.log(managerBook.PersonByCityCount(place.toLowerCase()));
+                break;
+            case 5:
+                managerBook.save();
                 break;
             default:
                 break;

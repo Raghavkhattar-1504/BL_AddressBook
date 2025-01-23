@@ -1,4 +1,5 @@
 import readLineSync from "readline-sync";
+import fs from "fs";
 
 interface Contact {
     firstname: string,
@@ -156,7 +157,10 @@ class Manager {
         return filteredData.length;
     }
 
-
+    save(){
+        fs.writeFileSync('addressStore.json',JSON.stringify(this.main));
+        console.log("File Saved!");
+    }
 }
 
 function addressBook(address_book: AddressBook) {
@@ -227,7 +231,8 @@ function ManagerBook() {
         1 -> Add Address Book 
         2 -> Select a book 
         3 -> Get Person by City 
-        4 -> Get count of Persons by city or state `
+        4 -> Get count of Persons by city or state 
+        5 -> Save Data `
 
         console.log(boilerplate);
         const inp: number = parseInt(readLineSync.question("Enter the number: "));
@@ -253,7 +258,9 @@ function ManagerBook() {
                 const place: string = readLineSync.question("Enter the city or state name: ");
                 console.log(managerBook.PersonByCityCount(place.toLowerCase()));
                 break;
-
+            case 5:
+                managerBook.save();
+                break;
             default:
                 break;
 
