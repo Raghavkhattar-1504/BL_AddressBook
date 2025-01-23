@@ -72,10 +72,32 @@ class AddressBook {
         console.log(this.arr);
     }
 }
-function addressBook() {
-    const address_book = new AddressBook();
-    const intro = ` Welcome to the Address Book
-    Enter the corresponding number to perform the operations:
+class Manager {
+    constructor() {
+        this.main = [];
+    }
+    add(name) {
+        const chk = this.main.filter(item => item.name === name);
+        if (!chk[0]) {
+            this.main.push({ name: name, data: new AddressBook() });
+            return;
+        }
+        else {
+            console.log("This name already exists, try using unique name.");
+        }
+    }
+    getBook(name) {
+        const book = this.main.filter(item => item.name === name);
+        if (!book) {
+            console.log("Address Book is not defined.");
+        }
+        else {
+            return book[0];
+        }
+    }
+}
+function addressBook(address_book) {
+    const intro = `Enter the corresponding number to perform the operations:
     0 -> Add Contacts 
     1 -> Edit Contact 
     2 -> Delete Contact 
@@ -107,9 +129,41 @@ function addressBook() {
             case 4:
                 address_book.print();
                 break;
+            case 5:
+                console.log("Exiting...");
+                return;
             default:
                 break;
         }
     }
 }
-addressBook();
+function ManagerBook() {
+    const managerBook = new Manager();
+    while (true) {
+        const boilerplate = `----WELCOME TO THE ADDRESS BOOK MANAGER----
+        Choose the number:
+        0 -> Exit 
+        1 -> Add Address Book 
+        2 -> Select a book `;
+        console.log(boilerplate);
+        const inp = parseInt(readline_sync_1.default.question("Enter the number: "));
+        switch (inp) {
+            case 0:
+                console.log("Exiting...");
+                return;
+            case 1:
+                const mainName = readline_sync_1.default.question("Enter the book name: ");
+                managerBook.add(mainName);
+                break;
+            case 2:
+                const bookname = readline_sync_1.default.question("Enter the book name: ");
+                const selectedBook = managerBook.getBook(bookname);
+                console.log(selectedBook);
+                addressBook(selectedBook.data);
+                break;
+            default:
+                break;
+        }
+    }
+}
+ManagerBook();
