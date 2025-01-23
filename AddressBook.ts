@@ -99,7 +99,7 @@ class AddressBook {
         2 -> Sort by state
         3 -> Sort by zip `
         console.log(menu);
-        
+
         const sortType: number = parseInt(readLineSync.question("Enter the number : "));
         if (sortType === 1) {
             this.arr.sort((a, b) => a.city.localeCompare(b.city));
@@ -173,7 +173,6 @@ function addressBook(address_book: AddressBook) {
 
     while (true) {
         console.log(intro);
-
         const input: number = parseInt(readLineSync.question("Enter a number"));
         switch (input) {
             case 0:
@@ -216,7 +215,6 @@ function addressBook(address_book: AddressBook) {
     }
 
 }
-
 function ManagerBook() {
     const managerBook = new Manager()
 
