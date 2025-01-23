@@ -132,7 +132,6 @@ class Manager {
 
 }
 
-
 function addressBook(address_book: AddressBook) {
     const intro: string =
         `Enter the corresponding number to perform the operations:
@@ -182,8 +181,6 @@ function addressBook(address_book: AddressBook) {
     }
 
 }
-
-
 
 function ManagerBook() {
     const managerBook = new Manager()
