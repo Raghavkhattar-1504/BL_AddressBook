@@ -21,7 +21,8 @@ class AddressBook {
 
     add() {
         const firstname = readLineSync.question("Enter First Name");
-        const lastname = readLineSync.question("Enter Last Name");
+        const lastname = readLineSync.question("Enter Last Name")
+
         const address = readLineSync.question("Enter Address");
         const city = readLineSync.question("Enter City");
         const state = readLineSync.question("Enter State");
@@ -30,14 +31,20 @@ class AddressBook {
         const email = readLineSync.question("Enter Email Address");
 
         const user: Contact = {
-            firstname: firstname,
-            lastname: lastname,
+            firstname: firstname.toLowerCase(),
+            lastname: lastname.toLowerCase(),
             address: address,
-            city: city,
-            state: state,
+            city: city.toLowerCase(),
+            state: state.toLowerCase(),
             zip: zip,
             phonenumber: phonenumber,
-            email: email
+            email: email.toLowerCase()
+        }
+
+        const userchk = this.arr.filter(item => item.firstname === user.firstname && item.lastname === user.lastname);
+        if(userchk[0]){
+            console.log("Conatct already exists with this name. ");
+            return;
         }
         this.arr.push(user);
         console.log(this.arr);

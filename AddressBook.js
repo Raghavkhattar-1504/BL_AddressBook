@@ -18,15 +18,20 @@ class AddressBook {
         const phonenumber = parseInt(readline_sync_1.default.question("Enter Phone Number"));
         const email = readline_sync_1.default.question("Enter Email Address");
         const user = {
-            firstname: firstname,
-            lastname: lastname,
+            firstname: firstname.toLowerCase(),
+            lastname: lastname.toLowerCase(),
             address: address,
-            city: city,
-            state: state,
+            city: city.toLowerCase(),
+            state: state.toLowerCase(),
             zip: zip,
             phonenumber: phonenumber,
-            email: email
+            email: email.toLowerCase()
         };
+        const userchk = this.arr.filter(item => item.firstname === user.firstname && item.lastname === user.lastname);
+        if (userchk[0]) {
+            console.log("Conatct already exists with this name. ");
+            return;
+        }
         this.arr.push(user);
         console.log(this.arr);
     }
