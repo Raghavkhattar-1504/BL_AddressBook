@@ -87,6 +87,11 @@ class AddressBook {
     getAllContacts() {
         return this.arr;
     }
+
+    sortContacts(){
+        this.arr.sort((a,b) => a.firstname.localeCompare(b.firstname));
+        console.log(this.arr);
+    }
 }
 
 class Manager {
@@ -140,7 +145,9 @@ function addressBook(address_book: AddressBook) {
     2 -> Delete Contact 
     3 -> Add Multiple Contacts 
     4 -> Get all Contacts 
-    5 -> Exit Menu `
+    5 -> Exit Menu 
+    6 -> Sort Contacts by name 
+    `
 
     while (true) {
         console.log(intro);
@@ -174,7 +181,9 @@ function addressBook(address_book: AddressBook) {
             case 5:
                 console.log("Exiting...");
                 return;
-
+            case 6: 
+            address_book.sortContacts();
+            break
             default:
                 break;
         }
