@@ -105,6 +105,11 @@ class Manager {
         const filteredData = data.filter(item => item.firstname === name && (item.city === place || item.state === place));
         return filteredData;
     }
+    PersonByCityCount(place) {
+        const data = this.main.flatMap(item => item.data.getAllContacts());
+        const filteredData = data.filter(item => item.city === place || item.state === place);
+        return filteredData.length;
+    }
 }
 function addressBook(address_book) {
     const intro = `Enter the corresponding number to perform the operations:
@@ -156,7 +161,7 @@ function ManagerBook() {
         1 -> Add Address Book 
         2 -> Select a book 
         3 -> Get Person by City 
-        `;
+        4 -> Get count of Persons by city or state `;
         console.log(boilerplate);
         const inp = parseInt(readline_sync_1.default.question("Enter the number: "));
         switch (inp) {
@@ -176,6 +181,10 @@ function ManagerBook() {
                 const personName = readline_sync_1.default.question("Enter the person name: ");
                 const placeName = readline_sync_1.default.question("Enter the city or state: ");
                 console.log(managerBook.getPersonByCity(personName.toLowerCase(), placeName.toLowerCase()));
+                break;
+            case 4:
+                const place = readline_sync_1.default.question("Enter the city or state name: ");
+                console.log(managerBook.PersonByCityCount(place.toLowerCase()));
                 break;
             default:
                 break;
